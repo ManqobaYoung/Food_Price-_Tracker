@@ -65,6 +65,34 @@ pip install -r requirements.txt
 ```
 2. Add or implement a scraper or data-collection script that writes to CSV/DB using the schema above.
 
+## Project structure
+
+This repository contains a small scaffold to help you build scrapers and collect price snapshots.
+
+- `src/` - core Python package
+  - `config.py` - store list and essential products
+  - `collector.py` - orchestrates scrapers and writes CSV output
+  - `scrapers/` - store scraper implementations and base class
+- `data/` - data storage (raw and processed)
+- `scripts/` - convenience scripts to run the collector
+- `tests/` - unit tests
+
+Quick start (PowerShell):
+
+```powershell
+# install deps
+pip install -r requirements.txt
+
+# run the collection (uses the template scraper by default)
+python .\scripts\run_collection.py
+
+# output will be written to data\processed\prices.csv
+```
+
+Next steps:
+- Implement real scrapers under `src/scrapers/` (one per store) by subclassing `BaseScraper` and returning price records matching the schema.
+- Improve collector to parallelise scrapers, store history, and add a small DB or CSV partitioning strategy.
+
 ## Contribution
 - Add missing essential products or local brand variants.
 - Improve scrapers per store page structure.
